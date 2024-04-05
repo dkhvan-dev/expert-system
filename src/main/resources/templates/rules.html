@@ -38,7 +38,7 @@
                     <td th:text="${rule.getBuildType() != null} ? ${rule.getBuildType().getName()} : '-'"></td>
                     <td th:text="${rule.getMoneyIncome() != null} ? 'От ' + ${rule.getMoneyIncome().getValueFrom()} + ' до ' + ${rule.getMoneyIncome().getValueTo()} + ' (' + ${rule.getMoneyIncome().getType().toString()} + ')' : '-'"></td>
                     <td th:text="${rule.getContribution() != null} ? 'От ' + ${rule.getContribution().getValueFrom()} + '% до ' + ${rule.getContribution().getValueTo()} + '%' : '-'"></td>
-                    <td th:text="${rule.getExperience() != null} ? 'От ' + ${rule.getExperience().getValueFrom()} + ' до ' + ${rule.getExperience().getValueTo()} + ' лет' : '-'"></td>
+                    <td th:text="${rule.getExperience() != null} ? 'От ' + ${rule.getExperience().getValueFrom()} + ' до ' + ${rule.getExperience().getValueTo()} + ' мес.' : '-'"></td>
                     <td th:text="${rule.getCreditHistory() != null} ? ${rule.getCreditHistory().toString()} : '-'"></td>
                     <td th:text="${rule.getCreditObligation() != null} ? 'От ' + ${rule.getCreditObligation().getMinValue()} + '% до ' + ${rule.getCreditObligation().getMaxValue()} + '%' : '-'"></td>
                     <td th:style="${rule.getResult().name() == 'REJECT'} ? 'color:red' : 'color:green'" th:text="${rule.getResult().toString()}"></td>
@@ -82,6 +82,7 @@
                             <label class="form-label mt-3">
                                 <span>Срок ИК</span>
                                 <select name="mortgagePeriodId">
+                                    <option selected>-</option>
                                     <option th:each="mortgagePeriod : ${mortgagePeriods}"
                                             th:text="'От ' + ${mortgagePeriod.getValueFrom()} + ' до ' + ${mortgagePeriod.getValueTo()} + ' мес.'"
                                             th:value="${mortgagePeriod.getId()}">
@@ -92,6 +93,7 @@
                             <label class="form-label mt-3">
                                 <span>Тип постройки</span>
                                 <select name="buildTypeId">
+                                    <option selected>-</option>
                                     <option th:each="buildType : ${buildTypes}"
                                             th:text="${buildType.getName()}"
                                             th:value="${buildType.getId()}">
@@ -102,6 +104,7 @@
                             <label class="form-label mt-3">
                                 <span>Доход</span>
                                 <select name="moneyIncomeId">
+                                    <option selected>-</option>
                                     <option th:each="moneyIncome : ${moneyIncomes}"
                                             th:text="'От ' + ${moneyIncome.getValueFrom()} + ' до ' + ${moneyIncome.getValueTo()} + ' (' + ${moneyIncome.getType().toString()} + ')'"
                                             th:value="${moneyIncome.getId()}">
@@ -112,6 +115,7 @@
                             <label class="form-label mt-3">
                                 <span>Взнос</span>
                                 <select name="contributionId">
+                                    <option selected>-</option>
                                     <option th:each="contribution : ${contributions}"
                                             th:text="'От ' + ${contribution.getValueFrom()} + '% до ' + ${contribution.getValueTo()} + '%'"
                                             th:value="${contribution.getId()}">
@@ -122,8 +126,9 @@
                             <label class="form-label mt-3">
                                 <span>Стаж</span>
                                 <select name="experienceId">
+                                    <option selected>-</option>
                                     <option th:each="experience : ${experiences}"
-                                            th:text="'От ' + ${experience.getValueFrom()} + ' до ' + ${experience.getValueTo()} + ' лет'"
+                                            th:text="'От ' + ${experience.getValueFrom()} + ' до ' + ${experience.getValueTo()} + ' мес.'"
                                             th:value="${experience.getId()}">
                                     </option>
                                 </select>
@@ -132,6 +137,7 @@
                             <label class="form-label mt-3">
                                 <span>Кредитная история</span>
                                 <select name="creditHistoryId">
+                                    <option selected>-</option>
                                     <option th:each="creditHistory : ${creditHistories}"
                                             th:text="${creditHistory.toString()}"
                                             th:value="${creditHistory.name()}">
@@ -142,6 +148,7 @@
                             <label class="form-label mt-3">
                                 <span>Кредитные обязательства</span>
                                 <select name="creditObligationId">
+                                    <option selected>-</option>
                                     <option th:each="creditObligation : ${creditObligations}"
                                             th:text="'От ' + ${creditObligation.getMinValue()} + '% до ' + ${creditObligation.getMaxValue()} + '%'"
                                             th:value="${creditObligation.getId()}">

@@ -85,7 +85,6 @@ async function checkExperience() {
         document.querySelector(".alert-success").style.display = "none";
         if (rulesOld.length !== 0) {
             document.querySelector(".alert-danger").style.display = "block";
-            document.querySelector(".alert-success").style.display = "none";
             experienceTrueBlock.style.display = "none";
             experienceValueInput.classList.add("incorrect-block");
         } else {
