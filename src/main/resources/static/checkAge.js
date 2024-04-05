@@ -1,4 +1,4 @@
-const url = "http://localhost:9090";
+const url = "http://localhost:8080";
 // Функция для проверки возраста
 async function checkAge() {
     const ageInput = document.querySelector("#ageInput");
