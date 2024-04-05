@@ -1,0 +1,101 @@
+<div class="admin-collapse">
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#moneyIncomeCollapseAdmin" aria-expanded="false">
+        Размер дохода
+    </button>
+
+    <!-- Money Income Collapse -->
+    <div class="d-flex col-10 mx-auto">
+        <div class="collapse admin-collapse__show mx-auto" id="moneyIncomeCollapseAdmin">
+            <div class="card card-body">
+                <!-- Button Money Income modal -->
+                <div>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addMoneyIncomeModal">
+                        Добавить
+                    </button>
+                </div>
+
+                <!-- Add Money Income Modal -->
+                <div class="modal fade" id="addMoneyIncomeModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog" style="max-width: 900px">
+                        <form class="form-control" action="/admin-panel/money-incomes" method="post">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Добавить размер дохода</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body d-flex flex-column">
+                                    <label class="form-label mt-3">
+                                        <span>От:</span>
+                                        <input type="number" min="0" class="form-control" name="valueFrom" required>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span>До:</span>
+                                        <input type="number" min="0" class="form-control" name="valueTo" required>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span>Тип:</span>
+                                        <select name="type">
+                                            <option th:each="type : ${moneyIncomeTypes}"
+                                                    th:value="${type.name()}"
+                                                    th:text="${type.toString()}">
+                                            </option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                    <button class="btn btn-success">Добавить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- ALL Money Income TABLE -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">От</th>
+                        <th scope="col">До</th>
+                        <th scope="col">Удалить</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="moneyIncome : ${moneyIncomes}">
+                        <td th:text="${moneyIncome.getId()}"></td>
+                        <td th:text="${moneyIncome.getValueFrom()}"></td>
+                        <td th:text="${moneyIncome.getValueTo()}"></td>
+                        <td>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteMoneyIncomeAdmin">
+                                Удалить
+                            </button>
+
+                            <!-- Delete Money Income Modal -->
+                            <form th:action="'/admin-panel/money-incomes/' + ${moneyIncome.getId()}" method="post">
+                                <div class="modal fade" id="deleteMoneyIncomeAdmin" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog" style="max-width: 900px">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Удаление размер дохода</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Вы действительно хотите удалить данный размер дохода?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                <button class="btn btn-danger">Удалить</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

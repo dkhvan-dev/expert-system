@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main.html}">
+<body>
+
+    <div class="btn-group d-flex justify-content-around" role="group" layout:fragment="mainFragment">
+
+        <div th:insert="~{inserts/moneyIncome.html}"></div>
+        <div th:insert="~{inserts/mortgagePeriod.html}"></div>
+        <div th:insert="~{inserts/buildType.html}"></div>
+        <div th:insert="~{inserts/contribution.html}"></div>
+        <div th:insert="~{inserts/experience.html}"></div>
+        <div th:insert="~{inserts/creditObligation.html}"></div>
+
+    </div>
+
+</body>
+</html>

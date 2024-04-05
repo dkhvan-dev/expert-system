@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: 'db-container'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=expert-system
+      - POSTGRES_HOST=postgres
+    ports:
+      - "5432:5432"
+
+  backend:
+    image: devd0ne/expert-system
+    container_name: 'expert-system'
+    depends_on:
+      - postgres
+    environment:
+      - SERVER_PORT=9090
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/expert-system
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+    ports:
+      - "8080:9090"

@@ -1,0 +1,87 @@
+<div class="admin-collapse">
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#experienceCollapseAdmin" aria-expanded="false">
+        Стаж
+    </button>
+
+    <div class="d-flex col-10 mx-auto">
+        <div class="collapse admin-collapse__show mx-auto" id="experienceCollapseAdmin">
+            <div class="card card-body">
+                <div>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addExperienceModal">
+                        Добавить
+                    </button>
+                </div>
+
+                <div class="modal fade" id="addExperienceModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog" style="max-width: 900px">
+                        <form class="form-control" action="/admin-panel/experiences" method="post">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Добавить стаж</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body d-flex flex-column">
+                                    <label class="form-label mt-3">
+                                        <span>От:</span>
+                                        <input type="number" min="0" class="form-control" name="valueFrom" required>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span>До:</span>
+                                        <input type="number" min="0" class="form-control" name="valueTo" required>
+                                    </label>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                    <button class="btn btn-success">Добавить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">От</th>
+                        <th scope="col">До</th>
+                        <th scope="col">Удалить</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="experience : ${experiences}">
+                        <td th:text="${experience.getId()}"></td>
+                        <td th:text="${experience.getValueFrom()}"></td>
+                        <td th:text="${experience.getValueTo()}"></td>
+                        <td>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteExperienceAdmin">
+                                Удалить
+                            </button>
+
+                            <form th:action="'/admin-panel/experiences/' + ${experience.getId()}" method="post">
+                                <div class="modal fade" id="deleteExperienceAdmin" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog" style="max-width: 900px">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Удаление стажа</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Вы действительно хотите удалить данный стаж?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                <button class="btn btn-danger">Удалить</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

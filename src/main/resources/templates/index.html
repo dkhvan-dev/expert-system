@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main.html}">
+<body>
+
+    <div class="container w-50" layout:fragment="mainFragment">
+        <div class="alert alert-danger" role="alert" style="display: none">
+            Отказано.
+        </div>
+        <div class="alert alert-success" role="alert" style="display: none">
+            Одобрено.
+        </div>
+        <div class="form-control">
+            <div class="mb-3">
+                <label for="residentSelect" class="form-label">Являетесь ли вы гражданином Республики Казахстан?</label>
+                <select id="residentSelect" name="isResident" onchange="checkResident()">
+                    <option value="false" selected>-</option>
+                    <option value="true">Да</option>
+                    <option value="false">Нет</option>
+                </select>
+            </div>
+
+            <div class="resident-true-block">
+                <div class="mb-3 age-block" style="display: none">
+                    <label for="ageInput" class="form-label">Введите ваш возраст:</label>
+                    <input type="number" min="0" max="200" id="ageInput" name="age" onchange="checkAge()" required>
+                </div>
+
+                <div class="age-true-block">
+                    <div class="mb-3 mortgage-period-block" style="display: none">
+                        <label for="mortgagePeriodInput" class="form-label">Введите срок ипотеки (месяцев):</label>
+                        <input type="number" min="0" id="mortgagePeriodInput" name="mortgagePeriod" onchange="checkMortgagePeriod()" required>
+                    </div>
+
+                    <div class="mortgage-period-true-block">
+                        <div class="mb-3 build-type-block" style="display: none">
+                            <label for="buildTypeInput" class="form-label">Выберите тип постройки:</label>
+                            <select class="form-select" id="buildTypeInput" name="buildType" onchange="checkBuildType()" required>
+                                <option selected>-</option>
+                                <option th:each="buildType : ${buildTypes}" th:value="${buildType.getId()}" th:text="${buildType.getName()}"></option>
+                            </select>
+                        </div>
+
+                        <div class="build-type-true-block">
+                            <div class="mb-3 money-income-block" style="display: none">
+                                <label for="moneyIncomeInput" class="form-label">Введите размер своего дохода:</label>
+                                <input id="moneyIncomeInput" class="form-control" type="number" min="0" name="moneyIncome" onchange="checkMoneyIncome()">
+                            </div>
+
+                            <div class="money-income-true-block">
+                                <div class="mb-3 contribution-block" style="display: none">
+                                    <label for="contributionValueInput" class="form-label">Введите размер взноса(в %):</label>
+                                    <input id="contributionValueInput" type="number" name="contributionValue" onchange="checkContribution()">
+                                </div>
+
+                                <div class="contribution-true-block">
+                                    <div class="mb-3 experience-block" style="display: none">
+                                        <label for="experienceValueInput" class="form-label">Введите стаж работы (в годах):</label>
+                                        <input id="experienceValueInput" type="number" name="experienceValue" onchange="checkExperience()">
+
+                                        <div class="mb-3">
+                                            <p>Кредитная история: <span class="credit-history-value"></span></p>
+                                            <p>Кредитные обязательства: <span class="credit-obligation-value"></span></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="experience-true-block">
+                                        <div class="mb-3 ownership-block" style="display: none">
+                                            <label for="ownershipValueSelect" class="form-label">Выберите тип имущества, имеющееся в наличии:</label>
+                                            <select class="form-select" id="ownershipValueSelect" required onchange="checkIsOwnership()">
+                                                <option value="false" selected>-</option>
+                                                <option value="false">Нет имущества</option>
+                                                <option value="true">Недвижимость</option>
+                                                <option value="true">Автомобиль</option>
+                                                <option value="true">Другие активы</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

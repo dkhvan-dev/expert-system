@@ -1,0 +1,88 @@
+<div class="admin-collapse">
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#creditObligationCollapseAdmin" aria-expanded="false">
+        Кредитные обязательства
+    </button>
+
+    <div class="d-flex col-10 mx-auto">
+        <div class="collapse admin-collapse__show mx-auto" id="creditObligationCollapseAdmin">
+            <div class="card card-body">
+                <div>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCreditObligationModal">
+                        Добавить
+                    </button>
+                </div>
+
+                <div class="modal fade" id="addCreditObligationModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog" style="max-width: 900px">
+                        <form class="form-control" action="/admin-panel/credit-obligations" method="post">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Добавить кредитные обязательства</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body d-flex flex-column">
+                                    <label class="form-label mt-3">
+                                        <span>Минимальное значение (%):</span>
+                                        <input type="number" min="0" max="100" name="minValue" required>
+                                    </label>
+
+                                    <label class="form-label mt-3">
+                                        <span>Максимальное значение (%):</span>
+                                        <input type="number" min="0" max="100" name="maxValue" required>
+                                    </label>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                    <button class="btn btn-success">Добавить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Минимальное значение</th>
+                        <th scope="col">Максимальное значение</th>
+                        <th scope="col">Удалить</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="creditObligation : ${creditObligations}">
+                        <td th:text="${creditObligation.getId()}"></td>
+                        <td th:text="${creditObligation.getMinValue()}"></td>
+                        <td th:text="${creditObligation.getMaxValue()}"></td>
+                        <td>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCreditObligationAdmin">
+                                Удалить
+                            </button>
+
+                            <form th:action="'/admin-panel/credit-obligations/' + ${creditObligation.getId()} + '/delete'" method="post">
+                                <div class="modal fade" id="deleteCreditObligationAdmin" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog" style="max-width: 900px">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Удаление кредитные обязательства</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Вы действительно хотите удалить данные кредитные обязательства?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                <button class="btn btn-danger">Удалить</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

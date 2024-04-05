@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main.html}">
+<body>
+
+    <div class="container" layout:fragment="mainFragment">
+
+        <button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#addRuleModal">
+            Добавить
+        </button>
+
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Гражданин РК?</th>
+                    <th scope="col">Мин. возраст</th>
+                    <th scope="col">Макс. возраст</th>
+                    <th scope="col">Срок ИК</th>
+                    <th scope="col">Тип постройки</th>
+                    <th scope="col">Доход</th>
+                    <th scope="col">Взнос</th>
+                    <th scope="col">Стаж</th>
+                    <th scope="col">Кредитная история</th>
+                    <th scope="col">Кредитные обязательства</th>
+                    <th scope="col">Решение</th>
+                    <th scope="col">Удалить</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="rule : ${rules}">
+                    <th scope="row" th:text="${rule.getId()}"></th>
+                    <td th:text="${rule.isResident() ? 'ДА' : 'НЕТ'}"></td>
+                    <td th:text="'От ' + ${rule.getMinAge()} + ' лет'"></td>
+                    <td th:text="'До ' + ${rule.getMaxAge()} + ' лет'"></td>
+                    <td th:text="${rule.getMortgagePeriod() != null} ? 'От ' + ${rule.getMortgagePeriod().getValueFrom()} + ' до ' + ${rule.getMortgagePeriod().getValueTo()} + ' мес.' : '-'"></td>
+                    <td th:text="${rule.getBuildType() != null} ? ${rule.getBuildType().getName()} : '-'"></td>
+                    <td th:text="${rule.getMoneyIncome() != null} ? 'От ' + ${rule.getMoneyIncome().getValueFrom()} + ' до ' + ${rule.getMoneyIncome().getValueTo()} + ' (' + ${rule.getMoneyIncome().getType().toString()} + ')' : '-'"></td>
+                    <td th:text="${rule.getContribution() != null} ? 'От ' + ${rule.getContribution().getValueFrom()} + '% до ' + ${rule.getContribution().getValueTo()} + '%' : '-'"></td>
+                    <td th:text="${rule.getExperience() != null} ? 'От ' + ${rule.getExperience().getValueFrom()} + ' до ' + ${rule.getExperience().getValueTo()} + ' лет' : '-'"></td>
+                    <td th:text="${rule.getCreditHistory() != null} ? ${rule.getCreditHistory().toString()} : '-'"></td>
+                    <td th:text="${rule.getCreditObligation() != null} ? 'От ' + ${rule.getCreditObligation().getMinValue()} + '% до ' + ${rule.getCreditObligation().getMaxValue()} + '%' : '-'"></td>
+                    <td th:style="${rule.getResult().name() == 'REJECT'} ? 'color:red' : 'color:green'" th:text="${rule.getResult().toString()}"></td>
+                    <td>
+                        <form th:action="'/admin-panel/rules/' + ${rule.getId()}" method="post">
+                            <button class="btn btn-danger">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Add Rule Modal -->
+        <div class="modal fade" id="addRuleModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 900px">
+                <form class="form-control" action="/admin-panel/rules" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Добавить правило</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body d-flex flex-column">
+                            <label class="form-label mt-3">
+                                <span>Гражданин РК?</span>
+                                <select name="isResident" required>
+                                    <option value="true">Да</option>
+                                    <option value="false">Нет</option>
+                                </select>
+                            </label>
+
+                            <label class="form-label mt-3">
+                                <span>Минимальный возраст</span>
+                                <input type="number" min="0" name="minAge">
+                            </label>
+
+                            <label class="form-label mt-3">
+                                <span>Максимальный возраст</span>
+                                <input type="number" min="0" name="minAge">
+                            </label>
+
+                            <label class="form-label mt-3">
+                                <span>Срок ИК</span>
+                                <select name="mortgagePeriodId">
+                                    <option th:each="mortgagePeriod : ${mortgagePeriods}"
+                                            th:text="'От ' + ${mortgagePeriod.getValueFrom()} + ' до ' + ${mortgagePeriod.getValueTo()} + ' мес.'"
+                                            th:value="${mortgagePeriod.getId()}">
+                                    </option>
+                                </select>
+                            </label>
+
+                            <label class="form-label mt-3">
+                                <span>Тип постройки</span>
+                                <select name="buildTypeId">
+                                    <option th:each="buildType : ${buildTypes}"
+                                            th:text="${buildType.getName()}"
+                                            th:value="${buildType.getId()}">
+                                    </option>
+                                </select>
+                            </label>
+
+                            <label class="form-label mt-3">
+                                <span>Доход</span>
+                                <select name="moneyIncomeId">
+                                    <option th:each="moneyIncome : ${moneyIncomes}"
+                                            th:text="'От ' + ${moneyIncome.getValueFrom()} + ' до ' + ${moneyIncome.getValueTo()} + ' (' + ${moneyIncome.getType().toString()} + ')'"
+                                            th:value="${moneyIncome.getId()}">
+                                    </option>
+                                </select>
+                            </label>
+
+                            <label class="form-label mt-3">
+                                <span>Взнос</span>
+                                <select name="contributionId">
+                                    <option th:each="contribution : ${contributions}"
+                                            th:text="'От ' + ${contribution.getValueFrom()} + '% до ' + ${contribution.getValueTo()} + '%'"
+                                            th:value="${contribution.getId()}">
+                                    </option>
+                                </select>
+                            </label>
+
+                            <label class="form-label mt-3">
+                                <span>Стаж</span>
+                                <select name="experienceId">
+                                    <option th:each="experience : ${experiences}"
+                                            th:text="'От ' + ${experience.getValueFrom()} + ' до ' + ${experience.getValueTo()} + ' лет'"
+                                            th:value="${experience.getId()}">
+                                    </option>
+                                </select>
+                            </label>
+
+                            <label class="form-label mt-3">
+                                <span>Кредитная история</span>
+                                <select name="creditHistoryId">
+                                    <option th:each="creditHistory : ${creditHistories}"
+                                            th:text="${creditHistory.toString()}"
+                                            th:value="${creditHistory.name()}">
+                                    </option>
+                                </select>
+                            </label>
+
+                            <label class="form-label mt-3">
+                                <span>Кредитные обязательства</span>
+                                <select name="creditObligationId">
+                                    <option th:each="creditObligation : ${creditObligations}"
+                                            th:text="'От ' + ${creditObligation.getMinValue()} + '% до ' + ${creditObligation.getMaxValue()} + '%'"
+                                            th:value="${creditObligation.getId()}">
+                                    </option>
+                                </select>
+                            </label>
+
+                            <label class="form-label mt-3">
+                                <span>Решение</span>
+                                <select name="result" required>
+                                    <option th:each="result : ${results}"
+                                            th:text="${result.toString()}"
+                                            th:value="${result.name()}"></option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button class="btn btn-success">Добавить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

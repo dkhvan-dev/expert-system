@@ -1,0 +1,86 @@
+<div class="admin-collapse">
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#buildTypeCollapseAdmin" aria-expanded="false">
+        Типы постройки
+    </button>
+
+    <!-- Build Type Collapse -->
+    <div class="d-flex col-10 mx-auto">
+        <div class="collapse admin-collapse__show mx-auto" id="buildTypeCollapseAdmin">
+            <div class="card card-body">
+                <!-- Button Build Type modal -->
+                <div>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addBuildTypeModal">
+                        Добавить
+                    </button>
+                </div>
+
+                <!-- Add Build Type Modal -->
+                <div class="modal fade" id="addBuildTypeModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog" style="max-width: 900px">
+                        <form class="form-control" action="/admin-panel/build-types" method="post">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Добавить тип постройки</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body d-flex flex-column">
+                                    <label class="form-label mt-3">
+                                        <span>Название:</span>
+                                        <input type="text" class="form-control" name="name" required>
+                                    </label>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                    <button class="btn btn-success">Добавить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- ALL Build Type TABLE -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">Удалить</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="buildType : ${buildTypes}">
+                        <td th:text="${buildType.getId()}"></td>
+                        <td th:text="${buildType.getName()}"></td>
+                        <td>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteBuildTypeAdmin">
+                                Удалить
+                            </button>
+
+                            <!-- Delete Build Type Modal -->
+                            <form th:action="'/admin-panel/build-types/' + ${buildType.getId()}" method="post">
+                                <div class="modal fade" id="deleteBuildTypeAdmin" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog" style="max-width: 900px">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Удаление типа постройки</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Вы действительно хотите удалить данный тип постройки?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                <button class="btn btn-danger">Удалить</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

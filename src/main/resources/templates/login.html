@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>AUTHENTICATION PAGE</title>
+    <script src="script.js"></script>
+    <link th:insert="~{includes/bootstrap.html}">
+</head>
+<body>
+
+    <header th:insert="~{includes/navbar.html}">
+
+    </header>
+
+    <div class="container w-50">
+
+        <div class="alert alert-danger" role="alert" th:if="${param.errorAuth}">
+            Неверные логин или пароль
+        </div>
+        <div class="row full-height justify-content-center">
+            <div class="col-12 text-center align-self-center py-5">
+                <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                    <div class="card-3d-wrap mx-auto">
+                        <div class="card-3d-wrapper">
+                            <div class="card-front">
+                                <div class="center-wrap">
+                                    <form class="section text-center" action="/login" method="post">
+                                        <h4 class="mb-4 pb-3">Авторизация</h4>
+                                        <div class="form-group">
+                                            <input type="email" name="username" class="form-style" id="logemail" autocomplete="off" required>
+                                            <i class="input-icon uil uil-at"></i>
+                                        </div>
+                                        <div class="form-group mt-2">
+                                            <input type="password" name="password" class="form-style" id="logpass" autocomplete="off" required>
+                                            <i class="input-icon uil uil-lock-alt"></i>
+                                        </div>
+                                        <button class="btn mt-4">Войти</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
