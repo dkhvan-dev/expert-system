@@ -54,6 +54,13 @@ async function checkContribution() {
         var randomIndex = Math.floor(Math.random() * creditHistoryTypes.length);
         var creditHistoryRandom = creditHistoryTypes[randomIndex];
         const experienceTrueBlock = document.querySelector(".experience-true-block");
+        var creditScore = Math.floor(Math.random() * (580));
+
+        if (creditHistoryRandom === 'GOOD') {
+            creditScore = Math.floor(Math.random() * (669 - 580 + 1)) + 580;
+        } else if (creditHistoryRandom === 'EXCELLENT') {
+            creditScore = Math.floor(Math.random() * (1001 - 670)) + 670;
+        }
 
         let searchReject = {
             "age": ageInput.value,
@@ -114,6 +121,9 @@ async function checkContribution() {
             throw error;
         }
 
+        const KD = calculateCreditHistoryConfidence(creditScore);
+        const MIN_KD = 0.5;
+
         if (rulesApprove.length !== 0) {
             document.querySelector(".alert-success").style.display = "block";
             experienceTrueBlock.style.display = "none";
@@ -123,6 +133,10 @@ async function checkContribution() {
             if (rulesOld.length !== 0) {
                 document.querySelector(".alert-danger").style.display = "block";
                 document.querySelector(".alert-danger").innerText = "Отказано. Ваша кредитная история или кредитные обязательства не удовлетворяют."
+                experienceTrueBlock.style.display = "none";
+            } else if (KD < MIN_KD) {
+                document.querySelector(".alert-danger").innerText = "Требуется дополнительная проверка менеджером банка.";
+                document.querySelector(".alert-danger").style.display = "block";
                 experienceTrueBlock.style.display = "none";
             } else {
                 document.querySelector(".alert-danger").style.display = "none";
@@ -134,4 +148,18 @@ async function checkContribution() {
         document.querySelector(".experience-block").style.display = "none";
     }
 
+}
+
+// Функция расчета КД для кредитной истории
+function calculateCreditHistoryConfidence(creditScore) {
+    let KD = 0; // Коэффициент достоверности
+    if (creditScore <= 579) {
+        KD = (579 - creditScore) / 579;
+    } else if (creditScore >= 580 && creditScore <= 669) {        // Расчет для хорошей кредитной истории
+        KD = creditScore <= 624 ? (624 - creditScore) / 44 : (669 - creditScore) / 44;
+    } else {
+        KD = 1; // Максимальный КД для отличной кредитной истории
+    }
+
+    return KD;
 }

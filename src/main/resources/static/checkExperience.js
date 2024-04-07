@@ -78,6 +78,17 @@ async function checkExperience() {
     document.querySelector(".credit-history-value").innerText = creditHistoryValues[randomIndex]
     document.querySelector(".credit-obligation-value").innerText = creditObligationRandom
 
+    var creditScore = Math.floor(Math.random() * (580));
+
+    if (creditHistoryRandom === 'GOOD') {
+        creditScore = Math.floor(Math.random() * (669 - 580 + 1)) + 580;
+    } else if (creditHistoryRandom === 'EXCELLENT') {
+        creditScore = Math.floor(Math.random() * (1001 - 670)) + 670;
+    }
+
+    const KD = calculateCreditHistoryConfidence(creditScore);
+    const MIN_KD = 0.5;
+
     if (rulesApprove.length !== 0) {
         document.querySelector(".alert-success").style.display = "block";
         experienceTrueBlock.style.display = "none";
@@ -87,6 +98,10 @@ async function checkExperience() {
             document.querySelector(".alert-danger").style.display = "block";
             experienceTrueBlock.style.display = "none";
             experienceValueInput.classList.add("incorrect-block");
+        } else if (KD < MIN_KD) {
+            document.querySelector(".alert-danger").innerText = "Требуется дополнительная проверка менеджером банка.";
+            document.querySelector(".alert-danger").style.display = "block";
+            experienceTrueBlock.style.display = "none";
         } else {
             document.querySelector(".alert-danger").style.display = "none";
             document.querySelector(".ownership-block").style.display = "block";

@@ -34,15 +34,39 @@ async function checkMoneyIncome() {
         throw error;
     }
 
+    const KD = calculateIncomeConfidence(parseInt(moneyIncomeInput.value));
+    const MIN_KD = 0.5;
+
     if (rules.length !== 0) {
         document.querySelector(".alert-danger").style.display = "block";
         document.querySelector(".alert-success").style.display = "none";
         moneyIncomeTrueBlock.style.display = "none";
         moneyIncomeInput.classList.add("incorrect-block");
+    } else if (KD < MIN_KD) {
+        document.querySelector(".alert-danger").innerText = "Требуется дополнительная проверка дохода. Пожалуйста, предоставьте дополнительные документы.";
+        document.querySelector(".alert-danger").style.display = "block";
+        document.querySelector(".alert-success").style.display = "none";
+        moneyIncomeTrueBlock.style.display = "none";
     } else {
         document.querySelector(".alert-danger").style.display = "none";
         document.querySelector(".contribution-block").style.display = "block";
         moneyIncomeTrueBlock.style.display = "block";
         moneyIncomeInput.classList.remove("incorrect-block");
     }
+}
+
+// Функция расчета КД для дохода
+function calculateIncomeConfidence(moneyIncome) {
+    let KD = 0; // Коэффициент достоверности
+    if (moneyIncome <= 250000) {
+        KD = (250000 - moneyIncome) / 250000;
+    } else if (moneyIncome > 250000 && moneyIncome <= 375000) {
+        KD = (375000 - moneyIncome) / 125000;
+    } else if (moneyIncome > 375000 && moneyIncome <= 500000) {
+        KD = (500000 - moneyIncome) / 125000;
+    } else {
+        KD = 1; // Максимальный КД для высокого дохода
+    }
+
+    return KD;
 }
