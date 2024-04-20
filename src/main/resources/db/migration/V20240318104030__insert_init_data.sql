@@ -1,29 +1,29 @@
 insert into users (username, password, full_name, role)
     values ('alisher', '$2y$10$ESbdYDTDIk.lfIuQuM/HzeKR1z8G9xP2bqSrXJZHa83Znsfs15PBG', 'Alisher Bekkalpenov', 'ROLE_ADMIN');
 
-insert into build_types
-    values (1, 'Бетон'), (2, 'Кирпич'), (3, 'Блок');
+insert into build_types(name)
+    values ('Бетон'), ('Кирпич'), ('Блок');
 
-insert into mortgage_periods
-    values (1, 0, 35), (2, 36, 100);
+insert into mortgage_periods(value_from, value_to)
+    values (0, 35), (36, 100);
 
-insert into money_incomes
-    values (1, 0, 250000, 'LOW'), (2, 250001, 500000, 'MIDDLE'), (3, 500001, 99999999999, 'HIGH');
+insert into money_incomes(value_from, value_to, type)
+    values (0, 250000, 'LOW'), (250001, 500000, 'MIDDLE'), (500001, 99999999999, 'HIGH');
 
-insert into contributions
-    values (1, 0, 19),
-           (2, 20, 100);
+insert into contributions(value_from, value_to)
+    values (0, 19),
+           (20, 100);
 
-insert into experiences
-    values (1, 0, 3),
-           (2, 12, 100),
-           (3, 3, 12);
+insert into experiences(value_from, value_to)
+    values (0, 3),
+           (12, 100),
+           (3, 12);
 
-insert into credit_obligations
-    values (1, 0, 30),
-           (2, 30, 100),
-           (3, 30, 50),
-           (4, 50, 100);
+insert into credit_obligations(min_value, max_value)
+    values (0, 30),
+           (30, 100),
+           (30, 50),
+           (50, 100);
 
 insert into rules (is_resident, min_age, max_age, result)
     values (true, 0, 20, 'REJECT'),

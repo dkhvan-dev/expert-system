@@ -6,13 +6,23 @@ async function checkContribution() {
     const ageInput = document.querySelector("#ageInput");
     const mortgagePeriodInput = document.querySelector("#mortgagePeriodInput");
     const contributionTrueBlock = document.querySelector(".contribution-true-block");
+    const totalCostInput = document.querySelector("#totalCostInput");
+    const contributionValue = Math.round((contributionValueInput.value * 100) / totalCostInput.value);
+
+    if (contributionValueInput.value > totalCostInput.value) {
+        document.querySelector(".alert-danger").style.display = "block";
+        document.querySelector(".alert-danger").innerText = "Первоначальный взнос не может превышать полную стоимость недвижимости.";
+        contributionTrueBlock.style.display = "none";
+        contributionValueInput.classList.add("incorrect-block");
+        return;
+    }
 
     let search = {
         "age": ageInput.value,
         "mortgagePeriod": mortgagePeriodInput.value,
         "buildTypeId": buildTypeInput.value,
         "moneyIncome": moneyIncomeInput.value,
-        "contribution": contributionValueInput.value,
+        "contribution": contributionValue,
         "result": 'REJECT'
     }
     var rules = []
@@ -67,7 +77,7 @@ async function checkContribution() {
             "mortgagePeriod": mortgagePeriodInput.value,
             "buildTypeId": buildTypeInput.value,
             "moneyIncome": moneyIncomeInput.value,
-            "contribution": contributionValueInput.value,
+            "contribution": contributionValue,
             "creditHistory": creditHistoryRandom,
             "creditObligation": creditObligationRandom,
             "result": 'REJECT'
@@ -78,7 +88,7 @@ async function checkContribution() {
             "mortgagePeriod": mortgagePeriodInput.value,
             "buildTypeId": buildTypeInput.value,
             "moneyIncome": moneyIncomeInput.value,
-            "contribution": contributionValueInput.value,
+            "contribution": contributionValue,
             "creditHistory": creditHistoryRandom,
             "creditObligation": creditObligationRandom,
             "result": 'APPROVE'

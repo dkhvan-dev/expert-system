@@ -58,38 +58,19 @@
                         <th scope="col">ID</th>
                         <th scope="col">От</th>
                         <th scope="col">До</th>
+                        <th scope="col">Тип</th>
                         <th scope="col">Удалить</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="moneyIncome : ${moneyIncomes}">
-                        <td th:text="${moneyIncome.getId()}"></td>
+                        <td th:text="${moneyIncome.getId()}" class="moneyIncomeId"></td>
                         <td th:text="${moneyIncome.getValueFrom()}"></td>
                         <td th:text="${moneyIncome.getValueTo()}"></td>
+                        <td th:text="${moneyIncome.getType().toString()}"></td>
                         <td>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteMoneyIncomeAdmin">
-                                Удалить
-                            </button>
-
-                            <!-- Delete Money Income Modal -->
                             <form th:action="'/admin-panel/money-incomes/' + ${moneyIncome.getId()}" method="post">
-                                <div class="modal fade" id="deleteMoneyIncomeAdmin" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog" style="max-width: 900px">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Удаление размер дохода</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Вы действительно хотите удалить данный размер дохода?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                                <button class="btn btn-danger">Удалить</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button class="btn btn-danger">Удалить</button>
                             </form>
                         </td>
                     </tr>

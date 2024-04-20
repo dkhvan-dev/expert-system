@@ -55,28 +55,8 @@
                         <td th:text="${creditObligation.getMinValue()}"></td>
                         <td th:text="${creditObligation.getMaxValue()}"></td>
                         <td>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCreditObligationAdmin">
-                                Удалить
-                            </button>
-
-                            <form th:action="'/admin-panel/credit-obligations/' + ${creditObligation.getId()} + '/delete'" method="post">
-                                <div class="modal fade" id="deleteCreditObligationAdmin" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog" style="max-width: 900px">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Удаление кредитные обязательства</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Вы действительно хотите удалить данные кредитные обязательства?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                                <button class="btn btn-danger">Удалить</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <form th:action="'/admin-panel/credit-obligations/' + ${creditObligation.getId()}" method="post">
+                                <button class="btn btn-danger">Удалить</button>
                             </form>
                         </td>
                     </tr>

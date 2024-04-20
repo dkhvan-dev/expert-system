@@ -1,6 +1,5 @@
 package kz.alisher.expertsystem.expertsystem.dto.moneyincomes;
 
-import kz.alisher.expertsystem.expertsystem.enums.MoneyIncomeType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +15,6 @@ public class MoneyIncomeCreate {
 
     private BigDecimal valueFrom;
     private BigDecimal valueTo;
-    private MoneyIncomeType type;
+    private String type;
 
 }

@@ -76,7 +76,7 @@
 
                             <label class="form-label mt-3">
                                 <span>Максимальный возраст</span>
-                                <input type="number" min="0" name="minAge">
+                                <input type="number" min="0" name="maxAge">
                             </label>
 
                             <label class="form-label mt-3">
@@ -136,7 +136,7 @@
 
                             <label class="form-label mt-3">
                                 <span>Кредитная история</span>
-                                <select name="creditHistoryId">
+                                <select name="creditHistory">
                                     <option selected>-</option>
                                     <option th:each="creditHistory : ${creditHistories}"
                                             th:text="${creditHistory.toString()}"

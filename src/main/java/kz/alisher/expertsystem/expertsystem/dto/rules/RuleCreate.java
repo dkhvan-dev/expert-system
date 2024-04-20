@@ -1,7 +1,5 @@
 package kz.alisher.expertsystem.expertsystem.dto.rules;
 
-import kz.alisher.expertsystem.expertsystem.enums.CreditHistory;
-import kz.alisher.expertsystem.expertsystem.enums.MoneyIncomeType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RuleCreate {
 
-    private boolean isResident;
+    private String isResident;
     private int minAge;
     private int maxAge;
     private Long mortgagePeriodId;
@@ -21,7 +19,7 @@ public class RuleCreate {
     private Long moneyIncomeId;
     private Long contributionId;
     private Long experienceId;
-    private CreditHistory creditHistory;
+    private String creditHistory;
     private Long creditObligationId;
     private String result;
 

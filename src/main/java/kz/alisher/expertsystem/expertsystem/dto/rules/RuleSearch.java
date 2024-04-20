@@ -1,7 +1,5 @@
 package kz.alisher.expertsystem.expertsystem.dto.rules;
 
-import kz.alisher.expertsystem.expertsystem.enums.CreditHistory;
-import kz.alisher.expertsystem.expertsystem.enums.Result;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +17,8 @@ public class RuleSearch {
     private Integer moneyIncome;
     private Integer contribution;
     private Integer experience;
-    private CreditHistory creditHistory;
+    private String creditHistory;
     private Integer creditObligation;
-    private Result result;
+    private String result;
 
 }

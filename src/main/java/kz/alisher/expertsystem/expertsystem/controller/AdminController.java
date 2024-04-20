@@ -71,7 +71,7 @@ public class AdminController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/build-types/{id}/delete")
+    @PostMapping("/build-types/{id}")
     public String deleteBuildType(@PathVariable Long id) {
         buildTypeService.delete(id);
 

@@ -54,28 +54,8 @@
                         <td th:text="${contribution.getValueFrom()} + '%'"></td>
                         <td th:text="${contribution.getValueTo()} + '%'"></td>
                         <td>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteContributionAdmin">
-                                Удалить
-                            </button>
-
                             <form th:action="'/admin-panel/contributions/' + ${contribution.getId()}" method="post">
-                                <div class="modal fade" id="deleteContributionAdmin" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog" style="max-width: 900px">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Удаление взноса</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Вы действительно хотите удалить данный взнос?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                                <button class="btn btn-danger">Удалить</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button class="btn btn-danger">Удалить</button>
                             </form>
                         </td>
                     </tr>

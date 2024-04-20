@@ -5,6 +5,7 @@ import kz.alisher.expertsystem.expertsystem.dto.rules.RuleCreate;
 import kz.alisher.expertsystem.expertsystem.dto.rules.RuleSearch;
 import kz.alisher.expertsystem.expertsystem.dto.rules.RuleView;
 import kz.alisher.expertsystem.expertsystem.entity.RuleEntity;
+import kz.alisher.expertsystem.expertsystem.enums.Result;
 import kz.alisher.expertsystem.expertsystem.mapper.RuleMapper;
 import kz.alisher.expertsystem.expertsystem.repository.RuleRepository;
 import kz.alisher.expertsystem.expertsystem.service.*;
@@ -117,8 +118,8 @@ public class RuleServiceImpl implements RuleService {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.isNull(root.get("creditObligation")));
             }
 
-            if (search.getResult() != null) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("result"), search.getResult()));
+            if (search.getResult() != null && !search.getResult().isBlank()) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("result"), Enum.valueOf(Result.class, search.getResult())));
             }
 
             return predicate;

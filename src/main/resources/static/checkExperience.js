@@ -7,6 +7,8 @@ async function checkExperience() {
     const ageInput = document.querySelector("#ageInput");
     const mortgagePeriodInput = document.querySelector("#mortgagePeriodInput");
     const experienceTrueBlock = document.querySelector(".experience-true-block");
+    const totalCostInput = document.querySelector("#totalCostInput");
+    const contributionValue = Math.round((contributionValueInput.value * 100) / totalCostInput.value);
 
     var creditHistoryTypes = ["BAD", "GOOD", "EXCELLENT"];
     var creditHistoryValues = ["Плохая", "Хорошая", "Отличная"];
@@ -19,7 +21,7 @@ async function checkExperience() {
         "mortgagePeriod": mortgagePeriodInput.value,
         "buildTypeId": buildTypeInput.value,
         "moneyIncome": moneyIncomeInput.value,
-        "contribution": contributionValueInput.value,
+        "contribution": contributionValue,
         "experience": experienceValueInput.value,
         "creditHistory": creditHistoryRandom,
         "creditObligation": creditObligationRandom,
@@ -31,7 +33,7 @@ async function checkExperience() {
         "mortgagePeriod": mortgagePeriodInput.value,
         "buildTypeId": buildTypeInput.value,
         "moneyIncome": moneyIncomeInput.value,
-        "contribution": contributionValueInput.value,
+        "contribution": contributionValue,
         "experience": experienceValueInput.value,
         "creditHistory": creditHistoryRandom,
         "creditObligation": creditObligationRandom,

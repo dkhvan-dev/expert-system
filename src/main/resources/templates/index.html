@@ -23,6 +23,11 @@
 
             <div class="resident-true-block">
                 <div class="mb-3 age-block" style="display: none">
+                    <div class="mb-3 total-cost-block">
+                        <label for="totalCostInput" class="form-label">Введите полную стоимость недвижимости:</label>
+                        <input type="number" min="0" id="totalCostInput" name="totalCost" required>
+                    </div>
+
                     <label for="ageInput" class="form-label">Введите ваш возраст:</label>
                     <input type="number" min="0" max="200" id="ageInput" name="age" onchange="checkAge()" required>
                 </div>
@@ -50,7 +55,7 @@
 
                             <div class="money-income-true-block">
                                 <div class="mb-3 contribution-block" style="display: none">
-                                    <label for="contributionValueInput" class="form-label">Введите размер взноса(в %):</label>
+                                    <label for="contributionValueInput" class="form-label">Введите размер первоначального взноса:</label>
                                     <input id="contributionValueInput" type="number" name="contributionValue" onchange="checkContribution()">
                                 </div>
 

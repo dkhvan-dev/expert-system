@@ -58,29 +58,8 @@
                         <td th:text="${mortgagePeriod.getValueFrom()}"></td>
                         <td th:text="${mortgagePeriod.getValueTo()}"></td>
                         <td>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteMortgagePeriodAdmin">
-                                Удалить
-                            </button>
-
-                            <!-- Delete Mortgage Period Modal -->
                             <form th:action="'/admin-panel/mortgage-periods/' + ${mortgagePeriod.getId()}" method="post">
-                                <div class="modal fade" id="deleteMortgagePeriodAdmin" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog" style="max-width: 900px">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Удаление срока ИК</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Вы действительно хотите удалить данный срок ИК?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                                <button class="btn btn-danger">Удалить</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button class="btn btn-danger">Удалить</button>
                             </form>
                         </td>
                     </tr>
